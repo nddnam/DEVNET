@@ -86,10 +86,9 @@ def control_connections_check(system_ip):
     api = "/device/control/connections"
     base_url = "https://%s:%s/dataservice"%(vmanage_host, vmanage_port)
 
-    #https://192.168.2.120/dataservice/device/control/connections?system-ip=10.10.10.11&deviceId=10.10.10.11
+    #https://192.168.2.120/dataservice/device/control/connections?deviceId=10.10.10.11
 
-    url = f"{base_url}{api}?system-ip={system_ip}&deviceID={system_ip}"
-
+    url = f"{base_url}{api}?deviceId={system_ip}"
     response = requests.get(url=url, headers=header, verify=False)
     
     if response.status_code == 200:
@@ -97,8 +96,21 @@ def control_connections_check(system_ip):
     else:
         print(f"Failed >> {response.status_code} >> {response.text}")
         exit()
-    
-    return items
+
+    neccessary_info = ['peer-type', 'system-ip', 'local-color', 'remote-color', 'uptime', 'site-id', 'protocol', 'state']
+    devices_data = []
+    for item in items:
+        device = {key: item[key] for key in neccessary_info}
+        devices_data.append(device)
+
+    #write to csv
+    csv_filename = f"control-connections-check-{items[0]['vdevice-host-name']}-{system_ip}.csv"
+    with open(csv_filename, 'w') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames = neccessary_info)
+        writer.writeheader()
+        writer.writerows(devices_data)   
+    csvfile.close()
+    return os.path.join(os.getcwd(), csv_filename)   
 
 if __name__ == "__main__":
-    print(device_list())
+    print(control_connections_check('10.10.10.12'))
