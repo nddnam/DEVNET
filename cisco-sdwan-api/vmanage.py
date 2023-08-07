@@ -83,10 +83,13 @@ def device_list():
 
 def control_connections_check(system_ip):
     #get all control connections status from given device
-    api = "/device"
+    api = "/device/control/connections"
     base_url = "https://%s:%s/dataservice"%(vmanage_host, vmanage_port)
 
-    url = base_url + api
+    #https://192.168.2.120/dataservice/device/control/connections?system-ip=10.10.10.11&deviceId=10.10.10.11
+
+    url = f"{base_url}{api}?system-ip={system_ip}&deviceID={system_ip}"
+
     response = requests.get(url=url, headers=header, verify=False)
     
     if response.status_code == 200:
@@ -94,6 +97,8 @@ def control_connections_check(system_ip):
     else:
         print(f"Failed >> {response.status_code} >> {response.text}")
         exit()
+    
+    return items
 
 if __name__ == "__main__":
     print(device_list())
