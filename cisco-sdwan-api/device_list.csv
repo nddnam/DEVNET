@@ -1,8 +1,0 @@
-system-ip,host-name,site-id,status,version
-9.9.9.20,vManage01,999,normal,20.6.4
-9.9.9.30,vSmart01,999,normal,20.6.5
-9.9.9.10,vBond01,999,normal,20.6.5
-10.10.10.11,cEdge-11,10,normal,17.06.05.0.5797
-10.10.10.12,cEdge-12,10,normal,17.06.05.0.5797
-20.20.20.21,cEdge-21,20,normal,17.06.05.0.5797
-30.30.30.31,cEdge-31,30,normal,17.06.05.0.5797

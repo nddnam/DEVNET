@@ -127,6 +127,7 @@ if __name__ == "__main__":
     vmanage_port = os.environ['vmanage_port']
     vmanage_username = os.environ['vmanage_username']
     vmanage_password = os.environ['vmanage_password']
+
     if (vmanage_host == None) or (vmanage_port == None) or (vmanage_username == None) or (vmanage_password == None):
         print(
             "Please export the envirionment variables which content the credential information:"
@@ -143,7 +144,7 @@ if __name__ == "__main__":
         )
         exit()
     
-    #start authenticating and getting header
+    #AUTHENTICATION &  GETTING header
     Auth = VMANAGE_AUTHENTICATION(vmanage_host,vmanage_port,vmanage_username,vmanage_password)
     header = Auth.get_header()
 
