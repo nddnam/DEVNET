@@ -1,1 +1,38 @@
+WHAT IS IT?
 
+-This module provide automation steps to operate the Cisco SDWAN (Viptela Network).
+
+-The Module functions and structures:
+
+VMANAGE_AUTHENTICATION (vmanage_host, vmanage_port, vmanage_username, vmanage_password)
+ .get_header
+ .get_baseurl
+
+DEVICES
+ .devicelist   
+ .controlcheck  (system_ip)
+
+CLI_TEMPLATE 
+ .checkattached (template_name)
+ .getid         (template_name)
+ .getconfig     (template_name)
+ .getname       (system_ip)
+
+...
+
+HOW TO USE?
+
+Please export the envirionment variables which include the credentials information:
+
+[Linux]
+export vmanage_host='your vmanage host'
+ export vmanage_port='443'
+ export vmanage_username='your username'
+ export vmanage_password='your password'
+
+[Windows]
+
+[System.Environment]::SetEnvironmentVariable('vmanage_host','your vmanage host')
+[System.Environment]::SetEnvironmentVariable('vmanage_port','443')
+[System.Environment]::SetEnvironmentVariable('vmanage_username','your username')
+[System.Environment]::SetEnvironmentVariable('vmanage_password','your password')
