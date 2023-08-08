@@ -1,0 +1,12 @@
+deviceType,templateName,templateClass,devicesAttached,lastUpdatedOn
+vedge-C8000V,cEdge-12-C8000v-CLI,cedge,0,2023-05-14 13:39:53.918000
+vedge-C8000V,[Custom]_cEdge-11,cedge,1,2023-08-07 14:32:06.008000
+vedge-C8000V,[Custom]_cEdge-12,cedge,1,2023-08-07 12:44:51.155000
+vedge-CSR-1000v,csr1kv-single-wan-inet,cedge,0,2023-05-03 21:58:06.780000
+vedge-CSR-1000v,csr1kv-single-wan-private,cedge,0,2023-05-03 21:58:22.273000
+vedge-CSR-1000v,csr1kv-dual-wan-inet_private,cedge,0,2023-05-01 21:41:51.419000
+vedge-CSR-1000v,csr1kv-single-uplink-inet-tlocext,cedge,0,2023-05-10 23:22:51.829000
+vedge-CSR-1000v,csr1kv-single-uplink-private-tlocext,cedge,0,2023-05-03 22:07:29.449000
+vedge-C8000V,C8000v-DUAL-WAN,cedge,0,2023-05-14 14:13:10.955000
+vedge-C8000V,cEDGE-11-C8000v-DUAL-WAN,cedge,0,2023-05-18 00:04:46.177000
+vedge-C8000V,C8K-cedge11,cedge,0,2023-08-04 15:48:06.638000

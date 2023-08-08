@@ -9,14 +9,13 @@ VMANAGE_AUTHENTICATION (vmanage_host, vmanage_port, vmanage_username, vmanage_pa
  .get_baseurl
 
 DEVICES
- .devicelist   
- .controlcheck  (system_ip)
+ .get_device_list()   
+ .control_check(system_ip)
 
-CLI_TEMPLATE 
- .checkattached (template_name)
- .getid         (template_name)
- .getconfig     (template_name)
- .getname       (system_ip)
+TEMPLATE 
+ .check_attached(template_name)
+ .get_template_id(template_name)
+ .get_device_template(template_name)
 
 ...
 

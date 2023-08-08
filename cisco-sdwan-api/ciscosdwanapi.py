@@ -4,6 +4,7 @@ import os
 import sys
 import csv
 import random
+from datetime import datetime
 #optional
 import urllib3
 urllib3.disable_warnings()
@@ -69,7 +70,7 @@ class DEVICES:
         self.header = header['header']
         self.base_url = header['base_url']
 
-    def device_list(self):
+    def get_device_list(self):
     #get all device list
         api = "/dataservice/device"
         url = self.base_url + api
@@ -83,12 +84,12 @@ class DEVICES:
     
         #categorize neccesary information
         neccessary_info = ['system-ip', 'host-name', 'site-id', 'status', 'version']
-        devices_data = []
+        output_data = []
         for item in items:
-            device = {key: item[key] for key in neccessary_info}
-            devices_data.append(device)
+            data = {key: item[key] for key in neccessary_info}
+            output_data.append(data)
 
-        return(devices_data)
+        return(output_data)
 
     def control_check(self, system_ip):
     #get all control connections status from given device
@@ -103,25 +104,68 @@ class DEVICES:
             exit()
 
         neccessary_info = ['peer-type', 'system-ip', 'local-color', 'remote-color', 'uptime', 'site-id', 'protocol', 'state']
-        devices_data = []
+        output_data = []
         for item in items:
-            device = {key: item[key] for key in neccessary_info}
-            devices_data.append(device)
+            data = {key: item[key] for key in neccessary_info}
+            output_data.append(data)
 
-        return devices_data
+        return output_data
 
-class CLI_TEMPLATE:
+class TEMPLATE:
 #Cisco SD-WAN CLI Template Administration
     def __init__(self, header):
         self.header = header['header']
         self.base_url = header['base_url']
 
-    def checkattached(template_name):
+    def check_attached(self, template_name):
     #Check if the given Template is being used by any devices.
-        result = "attached or not"
-        return result
+        api = "/dataservice/template/device"
+        url = self.base_url + api
+        response = requests.get(url=url, headers=self.header, verify=False)
 
+        if response.status_code == 200:
+            items = response.json()['data']
+        else:
+            print(f"Failed >> {response.status_code} >> {response.text}")
+            exit()
+        #filter by given Template Name
+        #for item in items:
+        #    if item['templateName'] == template_name:
+        #        template_attached_check = item['devicesAttached']
+        #        break
+        template_attached_check = [item['devicesAttached'] for item in items if item['templateName'] == template_name]
+        if template_attached_check[0] != 0:
+            return "Template In Used"
+        else:
+            return "Template Not In Used"
 
+    def get_device_template(self):
+    #List all of non-Default Device Templates
+        api = "/dataservice/template/device"
+        url = self.base_url + api
+        response = requests.get(url=url, headers=self.header, verify=False)
+
+        if response.status_code == 200:
+            items = response.json()['data']
+        else:
+            print(f"Failed >> {response.status_code} >> {response.text}")
+            exit()
+        #categorize neccesary information
+        neccessary_info = ['deviceType', 'templateName', 'templateClass', 'devicesAttached', 'lastUpdatedOn']    
+        output_data = []
+        for item in items:
+            data = {}
+            if item['factoryDefault'] == False:
+                for key in neccessary_info:
+                    data[key] = item[key]
+                #convert date time format
+                data['lastUpdatedOn'] = datetime.fromtimestamp(int(data['lastUpdatedOn']) / 1e3)
+                output_data.append(data)
+            #data = {key: item[key] for key in neccessary_info if item['factoryDefault'] == False}
+            #output_data.append(data)
+
+        return output_data
+            
 if __name__ == "__main__":
     vmanage_host = os.environ['vmanage_host']
     vmanage_port = os.environ['vmanage_port']
@@ -149,13 +193,20 @@ if __name__ == "__main__":
     header = Auth.get_header()
 
     #GET START USING
-    dev = DEVICES(header)
-    result = CSV_EXPORT(dev.control_check('10.10.10.12'), 'control_check.csv')
-    print(result)
 
-    result = CSV_EXPORT(dev.device_list(), 'device_list.csv')
-    print(result)
+    #dev = DEVICES(header)
+    #result = CSV_EXPORT(dev.control_check('10.10.10.12'), 'control_check.csv')
+    #print(result)
+    #result = CSV_EXPORT(dev.get_device_list(), 'device_list.csv')
+    #print(result)
 
+    template = TEMPLATE(header)
+    #template_name1 = 'C8000v-DUAL-WAN'
+    #template_name2 = '[Custom]_cEdge-12'
+
+    #print(template.check_attached(template_name1))
+    #print(template.device_template_list())
+    result = CSV_EXPORT(template.get_device_template(), 'device_template_list.csv')
 
 
 
