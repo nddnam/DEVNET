@@ -2,11 +2,11 @@ VMANAGE_AUTHENTICATION <- vmanage_host, vmanage_port, vmanage_username, vmanage_
  .get_header
  .get_baseurl
 
-devices_monitor
+DEVICES
  .devicelist    <- none
  .controlcheck  <- system_ip
 
-cli_template 
+CLI_TEMPLATE
  .checkattached <- template_name
  .getid         <- template_name
  .getconfig     <- template_name

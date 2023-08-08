@@ -1,4 +1,0 @@
-peer-type,system-ip,local-color,remote-color,uptime,site-id,protocol,state
-vsmart,9.9.9.30,biz-internet,default,0:04:32:50,999,dtls,up
-vsmart,9.9.9.30,private1,default,0:04:32:50,999,dtls,up
-vmanage,9.9.9.20,private1,default,0:04:32:50,999,dtls,up

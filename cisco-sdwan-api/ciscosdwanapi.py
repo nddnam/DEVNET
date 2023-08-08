@@ -8,7 +8,7 @@ import random
 import urllib3
 urllib3.disable_warnings()
 
-def CSV_EXPORT(list_of_dict, file_name=''.join((random.choice('random_filename_if_blank') for i in range(20)))):
+def CSV_EXPORT(list_of_dict, file_name='output_'+''.join((random.choice('random_filename_if_blank') for i in range(20)))):
 #Write to csv
     if (file_name.split("."))[-1] == 'csv':
         csv_filename = file_name
@@ -149,7 +149,10 @@ if __name__ == "__main__":
 
     #GET START USING
     dev = DEVICES(header)
-    result = CSV_EXPORT(dev.control_check())
+    result = CSV_EXPORT(dev.control_check('10.10.10.12'), 'control_check.csv')
+    print(result)
+
+    result = CSV_EXPORT(dev.device_list(), 'device_list.csv')
     print(result)
 
 
