@@ -1,3 +1,9 @@
 [submodule "zabbix_api"]
 	path = zabbix_api
 	url = https://github.com/itbaseTV/-devnet-zabbix_api
+[submodule "netmiko-check-hostname"]
+	path = netmiko-check-hostname
+	url = https://github.com/itbaseTV/-devnet-netmiko-check-hostname
+[submodule "cisco-sdwan-api"]
+	path = cisco-sdwan-api
+	url = https://github.com/itbaseTV/-devnet-cisco-sdwan-api
