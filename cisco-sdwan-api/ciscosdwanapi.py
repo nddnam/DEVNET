@@ -5,9 +5,21 @@ import sys
 import csv
 import random
 from datetime import datetime
+import socket
 #optional
 import urllib3
 urllib3.disable_warnings()
+
+def TCP_CONNECTION_CHECK(vmanage_host, vmanage_port=443):
+    timeout_seconds=2
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.settimeout(timeout_seconds)
+    result = sock.connect_ex((vmanage_host,int(vmanage_port)))
+    if result == 0:
+        return True
+    else:
+        return False
+    sock.close()
 
 def CSV_EXPORT(list_of_dict, file_name='output_'+''.join((random.choice('random_filename_if_blank') for i in range(20)))):
 #Write to csv
